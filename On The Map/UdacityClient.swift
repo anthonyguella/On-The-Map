@@ -40,9 +40,13 @@ class UdacityClient : NSObject {
         let jsonBody = "{\"udacity\": {\"username\": \"\(self.username!)\", \"password\": \"\(self.password!)\"}}"
         let url = URL(string: Constants.AuthorizationURL)!
         let _ = NetworkConvenience.sharedInstance().taskForPostMethod(url: url, trimData: true, jsonBody: jsonBody) { (results, error) in
-            
+
             guard error == nil else {
-                completionHandlerForSession(false, nil, nil, "\(error!)" )
+                if error!.code == 1 {
+                    completionHandlerForSession(false, nil, nil, "Unable to Connect to Server" )
+                } else {
+                    completionHandlerForSession(false, nil, nil, "Invalid Email or Password")
+                }
                 return
             }
             
@@ -58,7 +62,7 @@ class UdacityClient : NSObject {
                 }
                 completionHandlerForSession(true, sessionID, key, nil)
             } else {
-                completionHandlerForSession(false, nil, nil, "Not registered")
+                completionHandlerForSession(false, nil, nil, "Invalid Email or Password")
             }
         }
     }

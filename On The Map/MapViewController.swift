@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: Variables
     var refreshButton: UIButton?
@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
     func populateMap() {
         self.mapView.removeAnnotations(mapView.annotations)
         DispatchQueue.global(qos: .userInitiated).async {
-            for student in Parse.sharedInstance().allStudents {
+            for student in StudentsModel.sharedInstance().allStudents {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2D(latitude: student.latitude!, longitude: student.longitude!)
                 annotation.title = "\(student.firstName!) \(student.lastName!)"
@@ -97,8 +97,8 @@ class MapViewController: UIViewController {
     }
     
     func addButtonPressed() {
-        if Parse.sharedInstance().student != nil {
-            let message = "User \"\(Parse.sharedInstance().student!.firstName!) \(Parse.sharedInstance().student!.lastName!)\" Has Already Posted a Student Location. Would You Like to Overwrite Their Location?"
+        if StudentsModel.sharedInstance().student != nil {
+            let message = "User \"\(StudentsModel.sharedInstance().student!.firstName!) \(StudentsModel.sharedInstance().student!.lastName!)\" Has Already Posted a Student Location. Would You Like to Overwrite Their Location?"
             let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
                 self.presentPostViewController()
@@ -157,5 +157,20 @@ class MapViewController: UIViewController {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(MapViewController.populateMap), name: Notification.Name(rawValue: "studentsChanged"), object: nil)
         nc.addObserver(self, selector: #selector(MapViewController.showOverlay), name: Notification.Name(rawValue: "refreshPressed"), object: nil)
-    }   
+    }
+    
+    //MARK: MKMapViewdelegate
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotationView")
+        annotationView.canShowCallout = true
+        annotationView.rightCalloutAccessoryView = UIButton.init(type: UIButtonType.detailDisclosure)
+        
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let url = URL(string: view.annotation!.subtitle!!) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }

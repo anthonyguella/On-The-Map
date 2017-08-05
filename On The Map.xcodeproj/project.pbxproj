@@ -24,6 +24,7 @@
 		9FB56AEF1F2E8D5400534A6F /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB56AEE1F2E8D5400534A6F /* ViewControllerExtension.swift */; };
 		9FB56AF21F2E90B600534A6F /* LoadingOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB56AF11F2E90B600534A6F /* LoadingOverlayView.swift */; };
 		9FB56AF41F2ED2D700534A6F /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB56AF31F2ED2D700534A6F /* PostViewController.swift */; };
+		9FD567E71F356CC800FE0D3A /* StudentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD567E61F356CC800FE0D3A /* StudentsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		9FB56AEE1F2E8D5400534A6F /* ViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		9FB56AF11F2E90B600534A6F /* LoadingOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingOverlayView.swift; sourceTree = "<group>"; };
 		9FB56AF31F2ED2D700534A6F /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		9FD567E61F356CC800FE0D3A /* StudentsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				9F3EB93B1F16DB4E00F5C1D0 /* Clients */,
+				9FD567E61F356CC800FE0D3A /* StudentsModel.swift */,
 				9F435EBD1F26B293006434F1 /* NetworkConvenience.swift */,
 			);
 			name = Model;
@@ -260,6 +263,7 @@
 				9FB56AED1F2E87AC00534A6F /* StudentTableViewController.swift in Sources */,
 				9FB56AEF1F2E8D5400534A6F /* ViewControllerExtension.swift in Sources */,
 				9F435EBE1F26B293006434F1 /* NetworkConvenience.swift in Sources */,
+				9FD567E71F356CC800FE0D3A /* StudentsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

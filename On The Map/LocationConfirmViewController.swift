@@ -60,7 +60,7 @@ class LocationConfirmViewController: UIViewController {
     
     //MARK: IBActions
     @IBAction func finishButtonPressed(_ sender: Any) {
-        if Parse.sharedInstance().student != nil {
+        if StudentsModel.sharedInstance().student != nil {
             Parse.sharedInstance().updateStudentLocation(mapString: adr!, mediaURL: mediaURL!, latitude: lat!, longitude: lng!, completionHandler: { (success, error) in
                 guard error == nil else {
                     self.alertView("Failed to Update Location")

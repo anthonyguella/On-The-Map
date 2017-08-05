@@ -11,13 +11,7 @@ import Foundation
 class Parse: NSObject {
     
     //MARK: Variables
-    var allStudents: [Parse.Student] = [] {
-        didSet {
-            studentsChanged()
-        }
-    }
     var isUpdating = false
-    var student: Parse.Student? = nil
     
     // MARK: Functions
     func getStudentLocations(_ prevResults: [Student]?, completionHandler: @escaping (_ success: Bool,_ error: String?) -> Void) {
@@ -56,11 +50,11 @@ class Parse: NSObject {
                 var students = prevResults!
                 for result in resultsDictionary {
                     if let student = Student(json: result) {
-                        self.student = student
+                        StudentsModel.sharedInstance().student = student
                         students.append(student)
                     }
                 }
-                self.allStudents = students
+                StudentsModel.sharedInstance().allStudents = students
                 completionHandler(true, nil)
             }
             
@@ -70,6 +64,7 @@ class Parse: NSObject {
     func addStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandler: @escaping (_ success: Bool,_ error: String?) -> Void) {
         let url = ParseURLFromParameters(nil, withPathExtension: Parse.Methods.StudentLocation)
         let client = UdacityClient.sharedInstance()
+        let student = StudentsModel.sharedInstance().student
         let jsonBody = "{\"uniqueKey\": \"\(client.key!)\", \"firstName\": \"\(student!.firstName!)\", \"lastName\": \"\(student!.lastName!)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
         let _ = NetworkConvenience().taskForPostMethod(url: url, trimData: false, jsonBody: jsonBody) { (results, error) in
             
@@ -84,8 +79,8 @@ class Parse: NSObject {
     }
     
     func updateStudentLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandler: @escaping (_ success: Bool,_ error: String?) -> Void) {
-        
-        let url = ParseURLFromParameters(nil, withPathExtension: "\(Parse.Methods.StudentLocation)/\(Parse.sharedInstance().student!.objectId!)")
+        let student = StudentsModel.sharedInstance().student
+        let url = ParseURLFromParameters(nil, withPathExtension: "\(Parse.Methods.StudentLocation)/\(student!.objectId!)")
         let client = UdacityClient.sharedInstance()
         let jsonBody = "{\"uniqueKey\": \"\(client.key!)\", \"firstName\": \"\(student!.firstName!)\", \"lastName\": \"\(student!.lastName!)\",\"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(latitude), \"longitude\": \(longitude)}"
         let _ = NetworkConvenience().taskForPutMethod(url: url, trimData: false, jsonBody: jsonBody) { (results, error) in
@@ -117,13 +112,6 @@ class Parse: NSObject {
         }
         
         return components.url!
-    }
-    
-    private func studentsChanged() {
-        isUpdating = false
-        let nc = NotificationCenter.default
-        nc.post(Notification(name: Notification.Name(rawValue: "studentsChanged")))
-        
     }
     
     // MARK: Shared Instance

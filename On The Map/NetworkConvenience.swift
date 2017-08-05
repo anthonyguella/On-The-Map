@@ -67,24 +67,24 @@ class NetworkConvenience {
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
-            func sendError(_ error: String) {
+            func sendError(_ error: String, _ code: Int) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForPost(nil, NSError(domain: "taskForGetMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPost(nil, NSError(domain: "taskForPostMethod", code: code, userInfo: userInfo))
             }
             
             guard (error == nil) else {
-                sendError("There was a problem with your request: \(error!)")
+                sendError("There was a problem with your request: \(error!)", 1)
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
+                sendError("Your request returned a status code other than 2xx!", 2)
                 return
             }
             
             guard let data = data else {
-                sendError("No data was returned by the request!")
+                sendError("No data was returned by the request!", 2)
                 return
             }
             var newData = data
@@ -112,7 +112,7 @@ class NetworkConvenience {
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForPut(nil, NSError(domain: "taskForGetMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPut(nil, NSError(domain: "taskForPutMethod", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {
@@ -159,7 +159,7 @@ class NetworkConvenience {
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandlerForPost(nil, NSError(domain: "taskForGetMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPost(nil, NSError(domain: "taskForDeleteMethod", code: 1, userInfo: userInfo))
             }
             
             guard (error == nil) else {

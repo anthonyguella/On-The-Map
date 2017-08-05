@@ -85,8 +85,8 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func addButtonPressed() {
-        if Parse.sharedInstance().student != nil {
-            let message = "User \"\(Parse.sharedInstance().student!.firstName!) \(Parse.sharedInstance().student!.lastName!)\" Has Already Posted a Student Location. Would You Like to Overwrite Their Location?"
+        if StudentsModel.sharedInstance().student != nil {
+            let message = "User \"\(StudentsModel.sharedInstance().student!.firstName!) \(StudentsModel.sharedInstance().student!.lastName!)\" Has Already Posted a Student Location. Would You Like to Overwrite Their Location?"
             let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { (action) in
                 self.presentPostViewController()
@@ -137,7 +137,7 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
     //MARK: Table View Delegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentCell", for: indexPath)
-        let student = Parse.sharedInstance().allStudents[indexPath.row]
+        let student = StudentsModel.sharedInstance().allStudents[indexPath.row]
         
         cell.imageView?.image = #imageLiteral(resourceName: "icon_pin")
         cell.textLabel?.text = "\(student.firstName!) \(student.lastName!)"
@@ -147,11 +147,11 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Parse.sharedInstance().allStudents.count
+        return StudentsModel.sharedInstance().allStudents.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let url = URL(string: Parse.sharedInstance().allStudents[indexPath.row].mediaURL!) {
+        if let url = URL(string: StudentsModel.sharedInstance().allStudents[indexPath.row].mediaURL!) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
         tableView.deselectRow(at: indexPath, animated: true)

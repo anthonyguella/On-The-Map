@@ -30,29 +30,30 @@ class LoginViewController : UIViewController {
     
     //MARK: IBActions
     @IBAction func loginPressed(_ sender: Any) {
-        if !(emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty) {
-            activityIndicator.startAnimating()
-            UdacityClient.sharedInstance().username = emailTextField.text
-            UdacityClient.sharedInstance().password = passwordTextField.text
+        guard let username = emailTextField.text, !username.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            self.displayError(message: "Username/Password Field Is Blank.")
+            return
+        }
+        
+        activityIndicator.startAnimating()
+        UdacityClient.sharedInstance().username = username
+        UdacityClient.sharedInstance().password = password
             
-            DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async {
                 
-                UdacityClient.sharedInstance().authenticate(completionHandlerForAuth: { (success, error) in
-                
-                    if success {
-                        self.completeLogin()
+            UdacityClient.sharedInstance().authenticate(completionHandlerForAuth: { (success, error) in
+                    
+                if success {
+                    self.completeLogin()
+                    self.activityIndicator.stopAnimating()
+                }
+                else {
+                    DispatchQueue.main.async {
+                        self.displayError(message: error!)
                         self.activityIndicator.stopAnimating()
                     }
-                    else {
-                        DispatchQueue.main.async {
-                            self.displayError(message: "Incorrect Username or Password")
-                            self.activityIndicator.stopAnimating()
-                        }
-                    }
+                }
             })
-            }
-        } else {
-            self.displayError(message: "Username/Password Field Is Blank.")
         }
     }
 
