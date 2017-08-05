@@ -16,7 +16,6 @@ class LocationConfirmViewController: UIViewController {
     var lng: Double?
     var lat: Double?
     var adr: String?
-    var overlay = LoadingOverlayView()
     
     //MARK: IBOutlets
     @IBOutlet weak var mapView: MKMapView!
@@ -30,14 +29,12 @@ class LocationConfirmViewController: UIViewController {
     
     //MARK: Methods
     private func setupMap() {
-        overlay.showOverlay(view: self.view)
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
         annotation.title = adr!
         self.mapView.addAnnotation(annotation)
         let region = MKCoordinateRegion(center: annotation.coordinate, span: MKCoordinateSpanMake(0.1, 0.1))
         self.mapView.setRegion(region, animated: true)
-        overlay.hideOverlayView()
     }
     private func alertView(_ message: String) {
         let alertController = UIAlertController(title: "Location Not Found", message: message, preferredStyle: .alert)
