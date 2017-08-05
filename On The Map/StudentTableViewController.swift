@@ -70,7 +70,9 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func logoutButtonPressed() {
+        overlay.showOverlay(view: self.view)
         UdacityClient.sharedInstance().logout { (success, error) in
+            self.overlay.hideOverlayView()
             guard (error == nil) else {
                 print("Error logging out")
                 return
@@ -78,10 +80,9 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
             
             if success {
                 print("Successfully logged out")
+                self.dismiss(animated: true, completion: nil)
             }
         }
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "LoginVC")
-        self.present(vc, animated: true, completion: nil)
     }
     
     func addButtonPressed() {
