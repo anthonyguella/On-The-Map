@@ -32,7 +32,6 @@ class PostViewController: UIViewController {
     
     //MARK: IBActions
     @IBAction func findLocationButton(_ sender: Any) {
-        
         if locationTextField.text!.isEmpty {
             alertView("Must Enter a Location.")
         }

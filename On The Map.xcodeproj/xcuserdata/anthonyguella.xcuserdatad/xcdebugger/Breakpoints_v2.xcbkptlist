@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On The Map/PostViewController.swift"
-            timestampString = "523667102.905984"
+            timestampString = "523668138.476241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "searchForLocation()"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "On The Map/PostViewController.swift"
-            timestampString = "523667102.905984"
+            timestampString = "523668138.476241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "searchForLocation()"
             landmarkType = "7">
          </BreakpointContent>
