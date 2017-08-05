@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F1F5D551F368B35006B8926 /* Maps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F5D541F368B35006B8926 /* Maps.swift */; };
 		9F33E2041F30272000BE9FED /* LocationConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33E2031F30272000BE9FED /* LocationConfirmViewController.swift */; };
 		9F3476471F15AB61000F16A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3476461F15AB61000F16A0 /* AppDelegate.swift */; };
 		9F34764C1F15AB61000F16A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F34764A1F15AB61000F16A0 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F1F5D541F368B35006B8926 /* Maps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maps.swift; sourceTree = "<group>"; };
 		9F33E2031F30272000BE9FED /* LocationConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationConfirmViewController.swift; sourceTree = "<group>"; };
 		9F3476431F15AB61000F16A0 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3476461F15AB61000F16A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F1F5D531F368B1D006B8926 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				9F1F5D541F368B35006B8926 /* Maps.swift */,
+			);
+			name = Google;
+			sourceTree = "<group>";
+		};
 		9F34763A1F15AB61000F16A0 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +146,7 @@
 		9F3EB93B1F16DB4E00F5C1D0 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				9F1F5D531F368B1D006B8926 /* Google */,
 				9F435EB61F25451E006434F1 /* Parse */,
 				9F3EB93C1F16DB5400F5C1D0 /* Udacity */,
 			);
@@ -264,6 +275,7 @@
 				9FB56AEF1F2E8D5400534A6F /* ViewControllerExtension.swift in Sources */,
 				9F435EBE1F26B293006434F1 /* NetworkConvenience.swift in Sources */,
 				9FD567E71F356CC800FE0D3A /* StudentsModel.swift in Sources */,
+				9F1F5D551F368B35006B8926 /* Maps.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

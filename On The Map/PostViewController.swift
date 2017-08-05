@@ -14,7 +14,7 @@ class PostViewController: UIViewController {
     //MARK: IBOutlets
     @IBOutlet weak var websiteTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //MARK: View Lifecycle
     override func viewDidLoad() {
@@ -48,46 +48,21 @@ class PostViewController: UIViewController {
     
     //MARK: Methods
     private func searchForLocation() {
-        
-        var lat: Double?
-        var lng: Double?
-        var adr: String?
-        
+        activityIndicator.startAnimating()
         let search = locationTextField.text!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        print(search)
-        let url = URL(string: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=\(search)")!
-        _ = NetworkConvenience.sharedInstance().taskForGetMethod(url: url, trimData: false) { (results, error) in
+        
+        Maps.sharedInstance().geocode(search) { (lat, lng, adr, error) in
+            
+            self.activityIndicator.stopAnimating()
             
             guard error == nil else {
-                return
-            }
-            
-            guard let results = results else {
-                return
-            }
-            
-            guard let resultsArray = results["results"] as? [[String:AnyObject]] else {
-                print("error")
-                return
-            }
-            
-            for (result) in resultsArray {
-                if let geometryDictionary = result["geometry"] as? [String:AnyObject], let locationDictionary = geometryDictionary["location"] as? [String:Double], let latitude = locationDictionary["lat"], let longitude = locationDictionary["lng"] {
-                    lat = latitude
-                    lng = longitude
-                }
-                if let address = result["formatted_address"] as? String {
-                    adr = address
-                }
-            }
-            
-            if !(lat == nil && lng == nil && adr == nil) {
-                self.presentLocationConfirmationViewController(lng: lng!, lat: lat!, adr: adr!)
-                return
-            } else {
+                print(error!)
                 self.alertView("Could Not Geocode the String")
                 return
             }
+            
+            self.presentLocationConfirmationViewController(lng: lng!, lat: lat!, adr: adr!)
+            return
         }
     }
     
